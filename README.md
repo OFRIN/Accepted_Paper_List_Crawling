@@ -11,3 +11,9 @@ pip install bs4
 python3 -m pip install requests
 python3 -m pip install bs4
 ```
+
+# To-Do List
+
+- [ ] CSV가 아닌 XLSX로 저장해야 함. (제목 중 ','가 있을 경우 문제 발생)
+- [ ] PDF로 저장해야 함. (통신 관련 에러 발생)
+
