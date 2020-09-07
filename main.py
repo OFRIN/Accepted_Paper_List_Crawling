@@ -1,51 +1,36 @@
+# Copyright (C) 2020 * Ltd. All rights reserved.
+# author : Sanghyeon Jo <josanghyeokn@gmail.com>
 
-import os
-import urllib
-import requests
+import glob
 
-from bs4 import BeautifulSoup
+from crawling import get_soup
+from excel import XLSX_Writer
+from utils import download_file_from_url, read_json
 
-def csv_print(data_list, log_path = './log.csv'):
-    string = ''
-    for data in data_list:
-        if type(data) != type(str):
-            data = str(data)
-        string += (data + ',')
-    
-    if log_path is not None:
-        f = open(log_path, 'a+')
-        f.write(string + '\n')
-        f.close()
+# 1. Load json files
+json_paths = sorted(glob.glob('./data/*.json'))
+for json_index, json_path in enumerate(json_paths):
+    print('{:02d}. {}'.format(json_index + 1, json_path))
 
-def download_file_from_url(url, save_path):
-    urllib.request.urlretrieve(url, save_path) 
+json_index = int(input('Select index => '))
+data = read_json(json_paths[json_index])
 
-main_url = 'https://openaccess.thecvf.com/'
+excel_path = './results/{}.xlsx'.format(data['name'])
+links = data['links']
 
-conference_url = input('# Conference URL ? ')
-conference_name = conference_url.replace(main_url, '')[:8]
+# 2. Crawling and merge dataset
+writer = XLSX_Writer(excel_path, ['Name', 'URL'])
 
-csv_path = conference_name + '.csv'
-if not os.path.isfile(csv_path):
-    csv_print(['Name', 'URL'], csv_path)
+for link in links:
+    soup = get_soup(link)
+    papers = soup.select('dt > a')
 
-req = requests.get(conference_url)
+    main_url = 'https://openaccess.thecvf.com/'
+    for paper in papers:
+        pdf_url = main_url + paper.get('href')
+        pdf_url = pdf_url.replace('.html', '.pdf')
+        pdf_url = pdf_url.replace('/html/', '/papers/')
 
-html = req.text
-soup = BeautifulSoup(html, 'html.parser')
+        writer([paper.text, pdf_url])
 
-soup.get_pretty
-
-papers = soup.select(
-    'dt > a'
-)
-
-for index, paper in enumerate(papers):
-    pdf_url = main_url + paper.get('href')
-    pdf_url = pdf_url.replace('.html', '.pdf')
-    pdf_url = pdf_url.replace('/html/', '/papers/')
-
-    csv_print([paper.text, pdf_url], csv_path)
-    
-    # pdf_path = save_dir + os.path.basename(pdf_url)
-    # download_file_from_url(pdf_url, pdf_path)
+writer.close()
