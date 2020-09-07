@@ -10,5 +10,4 @@ pip install bs4
 # for Linux
 python3 -m pip install requests
 python3 -m pip install bs4
-
 ```
