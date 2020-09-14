@@ -16,7 +16,7 @@ for json_index, json_path in enumerate(json_paths):
 json_index = int(input('Select index => ')) - 1
 data = read_json(json_paths[json_index])
 
-excel_path = './results/{}.xlsx'.format(data['name'])
+excel_path = './data/{}.xlsx'.format(data['name'])
 links = data['links']
 
 # 2. Crawling and merge dataset
