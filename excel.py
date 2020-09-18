@@ -18,6 +18,8 @@ class XLSX_Writer:
         self.start_ascii = 65
         self.row_index = 1
 
+        self.max_length_of_column = {}
+
         self.update(class_names)
 
     def __call__(self, dataset : list):
@@ -26,7 +28,20 @@ class XLSX_Writer:
     def update(self, dataset : list):
         for index, data in enumerate(dataset):
             column = chr(self.start_ascii + index)
+
             self.sheet['{}{}'.format(column, self.row_index)] = data
+
+            try:
+                length_of_data = len(data)
+            except:
+                length_of_data = len(str(data)) * 2
+
+            try:
+                self.max_length_of_column[column] = max(length_of_data, self.max_length_of_column[column])
+            except KeyError:
+                self.max_length_of_column[column] = length_of_data
+            self.sheet.column_dimensions['{}'.format(column)].width = self.max_length_of_column[column]
+
         self.row_index += 1
 
     def close(self):
@@ -49,7 +64,7 @@ class XLSX_Reader:
         self.row_index = 2
 
         self.update()
-    
+
     def update(self):
         while True:
 
@@ -60,7 +75,7 @@ class XLSX_Reader:
 
             if data[0] is None or len(data) == 0:
                 break
-            
+
             self.dataset.append(data)
             self.row_index += 1
 

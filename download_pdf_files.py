@@ -1,4 +1,5 @@
 import os
+import glob
 
 from excel import XLSX_Reader 
 from utils import download_file_from_url
@@ -23,42 +24,44 @@ from utils import download_file_from_url
 #         except:
 #             print(name)
 
-excel_path = './data/CVPR2020.xlsx'
+root_dir = './papers/'
 excel_elements = ['Index', 'Name', 'Link']
 
-root_dir = './papers/'
-save_dir = './papers/' + os.path.basename(excel_path).replace('.xlsx', '') + '/'
+for excel_path in sorted(glob.glob('./conference/*.xlsx')):
 
-if not os.path.isdir(save_dir):
-    os.makedirs(save_dir)
+    save_dir = './papers/' + os.path.basename(excel_path).replace('.xlsx', '') + '/'
 
-reader = XLSX_Reader(excel_path, excel_elements)
+    if not os.path.isdir(save_dir):
+        os.makedirs(save_dir)
 
-for index, name, pdf_link in reader.dataset:
-    if ':' in name:
-        name = name.replace(':', ';')
-    
-    if '?' in name:
-        name = name.replace('?', '')
+    reader = XLSX_Reader(excel_path, excel_elements)
 
-    if '/' in name:
-        name = name.replace('/', ' ')
+    for index, name, pdf_link in reader.dataset:
+        if ':' in name:
+            name = name.replace(':', ';')
+        
+        if '?' in name:
+            name = name.replace('?', '')
 
-    if '!' in name:
-        name = name.replace('!', '')
+        if '/' in name:
+            name = name.replace('/', ' ')
 
-    if '\"' in name:
-        name = name.replace('\"', '')
+        if '!' in name:
+            name = name.replace('!', '')
 
-    if ' ' in name:
-        name = name.replace(' ', '_')
+        if '\"' in name:
+            name = name.replace('\"', '')
 
-    path = save_dir + '{:04d}_'.format(index) + name.replace(' ', '_') + '.pdf'
-    if os.path.isfile(path):
-        continue
-    
-    if not os.path.isfile(path):
-        try:
-            download_file_from_url(pdf_link, path)  
-        except:
-            print(name)
+        # if ' ' in name:
+        #     name = name.replace(' ', '_')
+
+        path = save_dir + '{:04d}_'.format(index) + name.replace(' ', '_') + '.pdf'
+        if os.path.isfile(path):
+            continue
+        
+        if not os.path.isfile(path):
+            try:
+                download_file_from_url(pdf_link, path)  
+            except:
+                print(name)
+
