@@ -3,13 +3,12 @@
 
 # 설치
 ```bash
-# for Windows
 pip install requests
 pip install bs4
 
-# for Linux
-python3 -m pip install requests
-python3 -m pip install bs4
+pip install arxiv
+pip install doi2bib
+pip install bibcure
 ```
 
 # To-Do List
