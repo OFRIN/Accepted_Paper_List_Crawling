@@ -18,7 +18,7 @@ def get_soup(url, option='requests', delay=1):
 
         driver = webdriver.Chrome("./data/chromedriver", chrome_options=options)
         driver.get(url)
-
+        
         time.sleep(delay)
 
         page_source = driver.page_source
