@@ -1,14 +1,26 @@
 import arxiv
 
-# https://pypi.org/project/arxiv/
-# search = arxiv.Search("Inferring Super-Resolution Depth from a Moving Light-Source Enhanced RGB-D Sensor: A Variational Approach", max_results=1)
-search = arxiv.Search("Puzzle-CAM: Improved localization via matching partial and full features", max_results=5)
+titles = [
+    "Multi-Domain Multi-Task Rehearsal for Lifelong Learning",
+    "EfficientDeRain: Learning Pixel-Wise Dilation Filtering for High-Efficiency Single-Image Deraining",
+    "Puzzle-CAM: Improved localization via matching partial and full features",
+    "Co-Grounding Networks with Semantic Attention for Referring Expression Comprehension in Videos"
+]
 
-# ERROR
+for title in titles:
+    results = arxiv.Search(title, max_results=5).get()
 
-for search in search.get():
-    print(search.title)
-    print(search.pdf_url)
-    print(search.summary.replace('\n', ''))
-    # search.download_pdf(dirpath="./data/", filename="test.pdf")
-    break
+    info = None
+    
+    for result in results:
+        if result.title.lower() == title.lower():
+            info = result
+            break
+    
+    if info is not None:
+        print(result.title)
+        print(result.pdf_url)
+        print(result.summary.replace('\n', ''))
+        print()
+    else:
+        print('ERROR : {}'.format(title))

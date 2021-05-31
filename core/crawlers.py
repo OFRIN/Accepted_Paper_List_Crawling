@@ -1,5 +1,3 @@
-
-
 def get_soup(url, option='requests', delay=1):
     if option == 'requests':
         req = requests.get(url)

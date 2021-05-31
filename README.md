@@ -9,6 +9,8 @@ pip install bs4
 pip install arxiv
 pip install doi2bib
 pip install bibcure
+
+pip install pdfplumber
 ```
 
 # To-Do List
