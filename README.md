@@ -29,35 +29,35 @@ pip install pdfplumber
 - CVPR 기준으로 Weakly-Supervised 란 키워드가 들어간 원하는 논문 10개를 찾기 위해 걸리는 시간은 대략 ~~초였고, Crawler를 활용하여 찾을 경우 ~초였습니다. 약 ~배 더 빠른 속도로 원하는 논문을 검색할 수 있었습니다.
 
 # Conference Lists
--[x] CVPR 2017
--[x] CVPR 2018
--[x] CVPR 2019
--[x] CVPR 2020
--[ ] CVPR 2021
+- [x] CVPR 2017
+- [x] CVPR 2018
+- [x] CVPR 2019
+- [x] CVPR 2020
+- [ ] CVPR 2021
 
--[x] ICCV 2017
--[x] ICCV 2019
+- [x] ICCV 2017
+- [x] ICCV 2019
 
--[x] WACV 2020
--[x] WACV 2021
+- [x] WACV 2020
+- [x] WACV 2021
 
--[x] ECCV 2018
--[x] ECCV 2020
+- [x] ECCV 2018
+- [x] ECCV 2020
 
--[x] NIPS 2017
--[x] NIPS 2018
--[x] NIPS 2019
--[x] NIPS 2020
+- [x] NIPS 2017
+- [x] NIPS 2018
+- [x] NIPS 2019
+- [x] NIPS 2020
 
--[ ] ICML 2019
--[ ] ICML 2020
+- [ ] ICML 2019
+- [ ] ICML 2020
 
--[x] ICLR 2019
--[x] ICLR 2020
+- [x] ICLR 2019
+- [x] ICLR 2020
 
--[x] AAAI 2019
--[x] AAAI 2020
--[x] AAAI 2021
+- [x] AAAI 2019
+- [x] AAAI 2020
+- [x] AAAI 2021
 
 # Reference
 - hoya 페이지 (AAAI, CVPR)
