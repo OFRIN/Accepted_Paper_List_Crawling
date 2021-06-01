@@ -64,10 +64,10 @@ for paper in papers:
     soup_per_paper = get_soup(sub_url)
 
     contents = soup_per_paper.find('div', {'class':'col'})
-
+    
     title = contents.find('h4').text
     abstract = contents.find_all('p')[3].text
-
+    
     tags = contents.find('div').find_all('a')
 
     bib_url = main_url + tags[1].get('href')
