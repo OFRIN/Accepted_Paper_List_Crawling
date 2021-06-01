@@ -1,5 +1,5 @@
-# Copyright (C) 2020 * Ltd. All rights reserved.
-# author : Sanghyeon Jo <josanghyeokn@gmail.com>
+# Copyright (C) 2021 * Ltd. All rights reserved.
+# author : Sanghyun Jo <josanghyeokn@gmail.com>
 
 import os
 import openpyxl
@@ -53,7 +53,7 @@ class XLSX_Reader:
            raise ValueError 
 
         self.book = openpyxl.load_workbook(excel_path)
-        self.sheet = self.book.get_sheet_by_name('Papers')
+        self.sheet = self.book.get_sheet_by_name(self.book.sheetnames[0])
 
         self.get_fn = lambda name: self.sheet[name].value
 

@@ -34,8 +34,8 @@ def get_string_from_url(url):
 
 conference = 'ICLR'
 # conference = 'ICML' # ERROR
-# year = '2019'
-year = '2018'
+year = '2019'
+# year = '2018'
 url = 'https://{}.cc/Conferences/{}/Schedule?type=Poster'.format(conference.lower(), year)
 
 soup = get_soup(url)

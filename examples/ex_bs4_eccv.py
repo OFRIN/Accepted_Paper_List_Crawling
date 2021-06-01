@@ -64,3 +64,15 @@ for paper in papers:
     print(bibtex)
     print(pdf_url)
     input()
+
+# For ECCV 2020
+# base_url = 
+# https://www.ecva.net/papers/eccv_2020/papers_ECCV/html/267_ECCV_2020_paper.php
+# "../../../../" = 12, papers/eccv_2020/papers_ECCV/papers/123460001.pdf
+# https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123460001.pdf
+
+# For ECCV 2018
+# base_url = "https://www.ecva.net/"
+# https://www.ecva.net/papers/eccv_2018/papers_ECCV/html/Vivek_B_S_Gray_box_adversarial_ECCV_2018_paper.php
+# ../../papers_ECCV/papers/Vivek_B_S_Gray_box_adversarial_ECCV_2018_paper.pdf
+# https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Vivek_B_S_Gray_box_adversarial_ECCV_2018_paper.pdf

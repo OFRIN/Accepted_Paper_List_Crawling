@@ -6,7 +6,7 @@ from tools import crawling_utils
 
 parser = io_utils.Parser()
 parser.add('conference_names', 'CVPR2018', str)
-parser.add('debug', True, bool)
+parser.add('debug', False, bool)
 args = parser.get_args()
 
 crawler = crawling_utils.Crawler()
@@ -16,7 +16,8 @@ data_dict = json_utils.read_json('./data/conference_info.json')
 
 for name in args.conference_names.split(','):
     data_path = f'./data/{name}.json'
-    if os.path.isfile(data_path):
+
+    if os.path.isfile(data_path) and not args.debug:
         continue
 
     data = []
@@ -54,7 +55,24 @@ for name in args.conference_names.split(','):
         data += crawler.parse_for_eccv(soup, main_url)
 
     elif data_dict[name]['type'] == 'nips':
-        pass
+        main_url = data_dict[name]['url']
+        year = name.replace('NIPS', '')
+        
+        soup = crawler.get_soup(main_url + '/paper/' + year)
+        data += crawler.parse_for_nips(soup, main_url)
+
+    elif data_dict[name]['type'] == 'openreview':
+        soup = crawler.get_soup(data_dict[name]['url'])
+        data += crawler.parse_for_openreview(soup)
+
+    elif data_dict[name]['type'] == 'virtual':
+        main_url = data_dict[name]['url']
+
+        crawler.set_selenium()
+        soup = crawler.get_soup(main_url + 'papers.html', delay=5)
+        crawler.set_requests()
+
+        data += crawler.parse_for_virtual(soup, main_url)
 
     elif data_dict[name]['type'] == 'aaai':
         pass
@@ -69,5 +87,5 @@ for name in args.conference_names.split(','):
             print('# Bibtex : ' + _data['bibtex'])
             print()
         input('#' * 50)
-
-    json_utils.write_json(data_path, data, encoding='utf-8')
+    else:
+        json_utils.write_json(data_path, data, encoding='utf-8')

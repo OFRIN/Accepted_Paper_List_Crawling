@@ -83,7 +83,15 @@ class Crawler:
             title = soup_per_paper.find("div", {"id": "papertitle"}).text
             abstract = soup_per_paper.find("div", {"id": "abstract"}).text
             bibtex = soup_per_paper.find("div", {"class": "bibref"}).text
-            pdf_url = url + soup_per_paper.select_one('#content > dl > dd > a').get('href')[6:]
+
+            sub_pdf_url = soup_per_paper.select_one('#content > dl > dd > a').get('href')
+
+            if '2021' in sub_pdf_url and 'WACV' in sub_pdf_url:
+                sub_pdf_url = sub_pdf_url[1:]
+            else:
+                sub_pdf_url = sub_pdf_url[6:]
+
+            pdf_url = url + sub_pdf_url
             
             title = remove_wrong_keyword(title)
             abstract = remove_wrong_keyword(abstract)
@@ -97,7 +105,7 @@ class Crawler:
             })
 
             if self.debug:
-                if len(data) >= 10:
+                if len(data) >= 3:
                     break
         
         print()
@@ -115,12 +123,29 @@ class Crawler:
             sys.stdout.flush()
 
             sub_url = url + paper.find('a').get('href')
+
             soup_per_paper = self.get_soup(sub_url)
 
             title = soup_per_paper.find("div", {"id": "papertitle"}).text
             abstract = soup_per_paper.find("div", {"id": "abstract"}).text
             bibtex = ''
-            pdf_url = url + soup_per_paper.select_one('#content > dl > dd > a').get('href')[12:]
+
+            try:
+                sub_pdf_url = soup_per_paper.select_one('#content > dl > dd > a').get('href')
+            except:
+                self.set_selenium()
+
+                soup_per_paper = self.get_soup(sub_url, delay=1)
+                sub_pdf_url = soup_per_paper.select_one('#content > dl > dd > a').get('href')
+
+                self.set_requests()
+
+            if '2020' in sub_pdf_url:
+                sub_pdf_url = sub_pdf_url[12:]
+            else:
+                sub_pdf_url = 'papers/eccv_2018/' + sub_pdf_url[6:]
+
+            pdf_url = url + sub_pdf_url
 
             title = remove_wrong_keyword(title)
             abstract = remove_wrong_keyword(abstract)
@@ -133,7 +158,7 @@ class Crawler:
             })
             
             if self.debug:
-                if len(data) >= 10:
+                if len(data) >= 5:
                     break
         
         print()
@@ -159,7 +184,16 @@ class Crawler:
             contents = soup_per_paper.find('div', {'class':'col'})
 
             title = contents.find('h4').text
-            abstract = contents.find_all('p')[3].text
+
+            p_tags = contents.find_all('p')
+
+            try:
+                abstract = contents.find_all('p')[-1].text
+            except IndexError:
+                print('# title : {}'.format(title))
+                print('# length of p_tags : {}'.format(len(p_tags)))
+                print('# sub_url : {}'.format(sub_url))
+                input()
 
             tags = contents.find('div').find_all('a')
 
@@ -183,6 +217,83 @@ class Crawler:
             
             if self.debug:
                 if len(data) >= 10:
+                    break
+        
+        print()
+
+        return data
+
+    def parse_for_openreview(self, soup):
+        data = []
+        openreview_url = 'https://openreview.net'
+
+        papers = soup.find_all('div', {'class':"maincard narrower Poster"})
+        length = len(papers)
+
+        self.set_selenium()
+
+        for paper_index, paper in enumerate(papers):
+            sys.stdout.write('\r[%04d/%04d]'%(paper_index + 1, length))
+            sys.stdout.flush()
+
+            title = paper.find('div', {'class':'maincardBody'}).text
+
+            sub_url = paper.find('a', {'class':'btn btn-default btn-xs href_PDF'}).get('href')
+            soup_per_paper = self.get_soup(sub_url, delay=2)
+
+            abstract = soup_per_paper.find('span', {'class':'note_content_value'}).text
+            pdf_url = openreview_url + soup_per_paper.find('a', {'class':'note_content_pdf'}).get('href')
+
+            bibtex = ''
+
+            data.append({
+                'title' : title,
+                'abstract' : abstract,
+                'bibtex' : bibtex,
+                'pdf_url' : pdf_url
+            })
+            
+            if self.debug:
+                if len(data) >= 5:
+                    break
+        
+        print()
+        self.set_requests()
+
+        return data
+
+    def parse_for_virtual(self, soup, main_url):
+        data = []
+
+        cards = soup.find('div', {'class':"cards row"})
+        papers = cards.find_all('div', {'class':"myCard col-xs-6 col-md-4"})
+
+        length = len(papers)
+
+        for paper_index, paper in enumerate(papers):
+            sys.stdout.write('\r[%04d/%04d]'%(paper_index + 1, length))
+            sys.stdout.flush()
+
+            sub_url = main_url + paper.find('a').get('href')
+            soup_per_paper = self.get_soup(sub_url)
+
+            title = soup_per_paper.find('h2', {'class':'card-title main-title text-center'}).text
+            abstract = soup_per_paper.find('div', {'id':'abstractExample'}).text[len('abstract:'):]
+            pdf_url = soup_per_paper.select_one('body > div:nth-child(9) > div:nth-child(1) > div > div.text-center.p-3 > a:nth-child(2)').get('href')
+            
+            title = remove_wrong_keyword(title)
+            abstract = remove_wrong_keyword(abstract)
+            bibtex = ''
+            
+            data.append({
+                'title' : title,
+                'abstract' : abstract,
+                'bibtex' : bibtex,
+                'pdf_url' : pdf_url
+            })
+            
+            if self.debug:
+                if len(data) >= 5:
                     break
         
         print()

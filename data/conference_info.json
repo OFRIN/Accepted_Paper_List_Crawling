@@ -67,28 +67,32 @@
     
     "NIPS2017":{
         "type" : "nips",
-        "url" : "https://papers.nips.cc/paper/2017"
+        "url" : "https://papers.nips.cc"
     },
     "NIPS2018":{
         "type" : "nips",
-        "url" : "https://papers.nips.cc/paper/2018"
+        "url" : "https://papers.nips.cc"
     },
     "NIPS2019":{
         "type" : "nips",
-        "url" : "https://papers.nips.cc/paper/2019"
+        "url" : "https://papers.nips.cc"
     },
     "NIPS2020":{
         "type" : "nips",
-        "url" : "https://papers.nips.cc/paper/2020"
+        "url" : "https://papers.nips.cc"
     },
     
+    "ICLR2018":{
+        "type" : "openreview",
+        "url" : "https://iclr.cc/Conferences/2018/Schedule?type=Poster"
+    },
     "ICLR2019":{
         "type" : "openreview",
         "url" : "https://iclr.cc/Conferences/2019/Schedule?type=Poster"
     },
     "ICLR2020":{
         "type" : "virtual",
-        "url" : "https://iclr.cc/virtual_2020/papers.html?filter=keywords"
+        "url" : "https://iclr.cc/virtual_2020/"
     },
 
     "AAAI2019":{

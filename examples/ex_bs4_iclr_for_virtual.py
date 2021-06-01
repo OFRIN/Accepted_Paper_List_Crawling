@@ -75,8 +75,6 @@ soup = get_soup(main_url + 'papers.html', 'selenium', delay=5)
 cards = soup.find('div', {'class':"cards row"})
 papers = cards.find_all('div', {'class':"myCard col-xs-6 col-md-4"})
 
-openreview_url = 'https://openreview.net'
-
 print(len(papers))
 
 for paper in papers:
