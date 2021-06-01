@@ -57,7 +57,7 @@ for paper in papers:
     abstract = soup_per_paper.find("div", {"id": "abstract"}).text
     bibtex = soup_per_paper.find("div", {"class": "bibref"}).text
     pdf_url = main_url + soup_per_paper.select_one('#content > dl > dd > a').get('href')[6:]
-
+    
     title = remove_wrong_keyword(title)
     abstract = remove_wrong_keyword(abstract)
     bibtex = remove_wrong_keyword(bibtex)
