@@ -155,3 +155,4 @@ dmypy.json
 *.exe
 *.json
 *.pdf
+*.txt

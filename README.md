@@ -74,5 +74,5 @@ pip install pdfplumber
 - [ ] Make word cloud using title and abstract.
 
 # Reference
-- hoya 페이지 (AAAI, CVPR)
+- https://github.com/hoya012/CVPR-2021-Paper-Statistics
 - https://scholarly.readthedocs.io/en/latest/quickstart.html#example
