@@ -2,6 +2,10 @@
 # author : Sanghyun Jo <josanghyeokn@gmail.com>
 
 import argparse
+import urllib.request
+
+def download_file_using_url(url, file_path):
+    urllib.request.urlretrieve(url, file_path)
 
 def boolean(v):
     if isinstance(v, bool):

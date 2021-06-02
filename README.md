@@ -33,7 +33,7 @@ pip install pdfplumber
 - [x] CVPR 2018
 - [x] CVPR 2019
 - [x] CVPR 2020
-- [ ] CVPR 2021
+- [x] CVPR 2021
 
 - [x] ICCV 2017
 - [x] ICCV 2019

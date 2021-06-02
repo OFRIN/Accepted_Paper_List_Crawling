@@ -65,11 +65,26 @@ def get_titles_for_aaai(pdf_path):
 
         line = total_lines[index].replace('-', ''); index += 1
         if not hint_of_authors in line:
+            type_of_line = 'unknown'
+
             try:
                 # ignore page index
-                int(line.replace(' ', '')) 
+                int(line.replace(' ', ''))
+                type_of_line = 'page_index' 
             except ValueError:
+                pass    
+            
+            second_line = total_lines[index]; index += 1
+            if len(second_line) > 5:
+                type_of_line = 'sub-title'
+            else:
+                type_of_line = 'author'
+
+            if type_of_line == 'sub-title':
                 title += line
+            else:
+                print(title, '"{}"'.format(line), '"{}"'.format(second_line))
+                input()
 
             # ignore single author
         
@@ -111,18 +126,20 @@ def get_titles_for_aaai(pdf_path):
 
 # google 결과도 정확하지 않음. (PDF 있는 href 태그만 찾아도 어려움)
 
-date = 'AAAI2021'
+date = 'AAAI2020'
 txt_path = f'./examples/{date}.txt'
 
-if not os.path.isfile(txt_path):
-    titles = get_titles_for_aaai(f'./data/{date}.pdf')
+# if not os.path.isfile(txt_path):
+#     titles = get_titles_for_aaai(f'./data/{date}.pdf')
 
-    with open(txt_path, 'w', encoding='utf-8') as f:
-        for title in titles:
-            f.write(title + '\n')
-else:
-    with open(txt_path, 'r', encoding='utf-8') as f:
-        titles = [title.strip() for title in f.readlines()]
+#     with open(txt_path, 'w', encoding='utf-8') as f:
+#         for title in titles:
+#             f.write(title + '\n')
+# else:
+#     with open(txt_path, 'r', encoding='utf-8') as f:
+#         titles = [title.strip() for title in f.readlines()]
+
+titles = get_titles_for_aaai(f'./data/{date}.pdf')
 
 error_count = 0
 length = len(titles)
