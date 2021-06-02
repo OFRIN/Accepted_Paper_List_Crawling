@@ -11,6 +11,7 @@ pip install arxiv
 pip install doi2bib
 pip install bibcure
 
+pip install fpdf
 pip install pdfplumber
 ```
 
@@ -19,6 +20,13 @@ pip install pdfplumber
     - 학회 선택 JPG
 2. 검색할 때 참고할 키워드를 입력합니다. 여러가지 키워드를 입력할 경우 “,”로 구분하면 됩니다.
     - Keyword 입력 JPG
+```bash
+python3 make_pdf_file_using_keywords.py \
+--keywords weakly,localization \
+--pdf_path ./data/WSOL.pdf \
+--num_match 2
+```
+
 3. 검색 버튼을 누르면 위 조건들을 기반으로 매칭된 논문들을 Json 파일로 저장합니다. 이때 Json 파일에 저장되는 모든 데이터는 아래 3가지 규칙에 의하여 저장됩니다.
     1. 학회의 impact factor가 높을수록
     2. 최신 논문일수록 

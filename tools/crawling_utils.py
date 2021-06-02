@@ -449,7 +449,7 @@ class Crawler:
             if info is not None:
                 single_data = {
                     'title' : title,
-                    'abstract' : result.summary.replace('\n', ''),
+                    'abstract' : result.summary.replace('\n', ' '),
                     'bibtex' : '',
                     'pdf_url' : result.pdf_url,
                 }
@@ -539,7 +539,7 @@ class Crawler:
             if info is not None:
                 single_data = {
                     'title' : title,
-                    'abstract' : result.summary.replace('\n', ''),
+                    'abstract' : result.summary.replace('\n', ' '),
                     'bibtex' : '',
                     'pdf_url' : result.pdf_url,
                 }
