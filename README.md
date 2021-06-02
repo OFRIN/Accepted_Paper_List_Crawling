@@ -13,6 +13,11 @@ pip install bibcure
 
 pip install fpdf
 pip install pdfplumber
+
+pip install git+https://github.com/titipata/scipdf_parser
+```
+
+```
 ```
 
 # Usage
@@ -21,10 +26,10 @@ pip install pdfplumber
 2. 검색할 때 참고할 키워드를 입력합니다. 여러가지 키워드를 입력할 경우 “,”로 구분하면 됩니다.
     - Keyword 입력 JPG
 ```bash
-python3 make_pdf_file_using_keywords.py \
---keywords weakly,localization \
---pdf_path ./data/WSOL.pdf \
---num_match 2
+python make_pdf_file_using_keywords.py --keywords weakly,object,localization --pdf_path ./data/WSOL.pdf
+python make_pdf_file_using_keywords.py --keywords weakly,semantic,segmentation --pdf_path ./data/WSSS.pdf 
+python make_pdf_file_using_keywords.py --keywords weakly,object,detection --pdf_path ./data/WSOD.pdf 
+python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation --pdf_path ./data/WSIS.pdf 
 ```
 
 3. 검색 버튼을 누르면 위 조건들을 기반으로 매칭된 논문들을 Json 파일로 저장합니다. 이때 Json 파일에 저장되는 모든 데이터는 아래 3가지 규칙에 의하여 저장됩니다.
@@ -84,3 +89,4 @@ python3 make_pdf_file_using_keywords.py \
 # Reference
 - https://github.com/hoya012/CVPR-2021-Paper-Statistics
 - https://scholarly.readthedocs.io/en/latest/quickstart.html#example
+- https://github.com/titipata/scipdf_parser
