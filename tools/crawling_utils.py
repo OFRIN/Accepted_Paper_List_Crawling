@@ -409,8 +409,9 @@ class Crawler:
                 if type_of_line == 'sub-title':
                     title += line
                 else:
-                    print(title, '"{}"'.format(line), '"{}"'.format(second_line))
-                    input()
+                    # print(title, '"{}"'.format(line), '"{}"'.format(second_line))
+                    # input()
+                    pass
 
             titles.append(title)
 
