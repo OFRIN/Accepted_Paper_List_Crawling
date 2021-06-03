@@ -30,7 +30,10 @@ pip install bibcure
 pip install fpdf
 pip install pdfplumber
 
-pip install git+https://github.com/titipata/scipdf_parser
+pip install refextract
+
+pip uninstall python-magic
+pip install python-magic-bin==0.4.14
 ```
 
 ### 2. Requirements
