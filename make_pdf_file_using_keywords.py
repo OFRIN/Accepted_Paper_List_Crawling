@@ -7,6 +7,7 @@ from tools.json_utils import read_json
 parser = io_utils.Parser()
 parser.add('keywords', 'weakly,localization,segmentation,detection,panoptic', str)
 parser.add('pdf_path', '', str)
+parser.add('num_match', -1, int)
 parser.add('font', 'Roboto', str)
 args = parser.get_args()
 
@@ -97,6 +98,9 @@ class PDF(FPDF):
 
 papers = []
 keywords = args.keywords.lower().split(',')
+
+# if args.num_match == -1:
+#     args.num_match = len(keywords)
 
 print('#', len(keywords))
 
