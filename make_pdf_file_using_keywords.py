@@ -6,8 +6,8 @@ from tools.json_utils import read_json
 
 parser = io_utils.Parser()
 parser.add('keywords', 'weakly,localization,segmentation,detection,panoptic', str)
-parser.add('pdf_path', './data/WLSD.pdf', str)
-parser.add('font', 'Open_Sans', str)
+parser.add('pdf_path', './results/WLSD.pdf', str)
+parser.add('font', 'Roboto', str)
 args = parser.get_args()
 
 class PDF(FPDF):
@@ -130,6 +130,9 @@ for name in conference_names:
             papers.append(data)
 
 print('# Found papers : ({})'.format(len(papers)))
+for name in conference_names:
+    print(f'# {name} : {count_dict[name]}')
+print()
 
 if len(papers) > 0:
     pdf = PDF(papers)
