@@ -15,7 +15,7 @@ crawler.set_debug(args.debug)
 data_dict = json_utils.read_json('./data/conference_info.json')
 
 for name in args.conference_names.split(','):
-    data_path = f'./data/{name}.json'
+    data_path = f'./data/conferences/{name}.json'
 
     # if os.path.isfile(data_path) and not args.debug:
     #     continue

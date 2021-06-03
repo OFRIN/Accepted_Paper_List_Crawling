@@ -6,7 +6,7 @@ from tools.json_utils import read_json
 
 parser = io_utils.Parser()
 parser.add('keywords', 'weakly,localization,segmentation,detection,panoptic', str)
-parser.add('pdf_path', './results/WLSD.pdf', str)
+parser.add('pdf_path', '', str)
 parser.add('font', 'Roboto', str)
 args = parser.get_args()
 
@@ -127,6 +127,8 @@ for name in conference_names:
             count_dict[name] += 1
             data['logo'] = './resource/' + logo_dict[name]
 
+            print(data['title'])
+
             papers.append(data)
 
 print('# Found papers : ({})'.format(len(papers)))
@@ -134,7 +136,7 @@ for name in conference_names:
     print(f'# {name} : {count_dict[name]}')
 print()
 
-if len(papers) > 0:
+if len(papers) > 0 and args.pdf_path != '':
     pdf = PDF(papers)
     pdf.update_font(args.font)
     pdf.update()
