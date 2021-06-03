@@ -10,7 +10,7 @@
 ![Part1](./resource/Part1.png)
 
 2. Make a pdf file using the papers.
-![Part21](./resource/Part2.png)
+![Part2](./resource/Part2.png)
 
 # Installation
 
