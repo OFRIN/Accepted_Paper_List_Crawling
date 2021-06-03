@@ -101,6 +101,9 @@ for name in [
     'CVPR2019', 'AAAI2019', 'NIPS2019', 'ICCV2019', 'ICLR2019',
     'CVPR2018',             'NIPS2018',             'ICLR2018']:
 
+    if not '2021' in name:
+        input()
+
     for data in read_json('./data/{}.json'.format(name), encoding='utf-8'):
         title = data['title'].lower()
         abstract = data['abstract'].lower()
@@ -110,7 +113,7 @@ for name in [
 
         cond = cond_title and cond_abstract
 
-        # print(title, cond_title, cond_abstract)
+        print(name, title)
 
         if sum(cond) >= len(keywords):
             papers.append(data)
