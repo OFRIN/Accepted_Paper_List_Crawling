@@ -3,18 +3,22 @@
 - 이때, 가장 불편한 점이 학회마다 저장된 논문 형식이 다르고, title, abstract 확인을 위해 일일히 검색해서 들어가야 한다는 점입니다. 위 문제를 해결하고자 제가 개발한 Crawler는 내가 입력한 키워드를 유명한 학회들에서 크롤링한 논문들을 빠르게 찾고, 하나의 파일로 합쳐줍니다.
 
 # Overview
+
+### Step 1. Query keywords in DB
 - 
-![Overview](./resource/Overview.png)
+![Step 1](./resource/Part1.png)
 
-1. Query keywords in DB
-![Part1](./resource/Part1.png)
+### Step 2. Insert searched papers into a pdf file
+- 
+![Step 2](./resource/Part2.png)
 
-2. Make a pdf file using the papers.
-![Part2](./resource/Part2.png)
+### Summary 
+- 
+![Summary](./resource/Overview.png)
 
 # Installation
 
-1. PIP 
+### 1. PIP 
 ```bash
 pip install requests
 pip install bs4
@@ -29,43 +33,29 @@ pip install pdfplumber
 pip install git+https://github.com/titipata/scipdf_parser
 ```
 
-2. Requirements
+### 2. Requirements
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Docker (TODO)
+### 3. Docker (TODO)
 ```bash
 ```
 
 # Usage
-1. CUI (Console User Interface)
-
+- 
 ```bash
 python make_pdf_file_using_keywords.py --keywords weakly,object,localization --pdf_path ./results/WSOL.pdf
 python make_pdf_file_using_keywords.py --keywords weakly,semantic,segmentation --pdf_path ./results/WSSS.pdf 
 python make_pdf_file_using_keywords.py --keywords weakly,object,detection --pdf_path ./results/WSOD.pdf 
-python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation --pdf_path ./results/WSIS.pdf 
-python make_pdf_file_using_keywords.py --keywords CAM --pdf_path ./results/CAM.pdf 
+python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation --pdf_path ./results/WSIS.pdf
 ```
-
-2. GUI (Graphical User Interface)
-
-1. 제공하는 학회 목록 중 추출하고 싶은 학회를 선택합니다.
-    - 학회 선택 JPG
-2. 검색할 때 참고할 키워드를 입력합니다. 여러가지 키워드를 입력할 경우 “,”로 구분하면 됩니다.
-    - Keyword 입력 JPG
-
-3. 검색 버튼을 누르면 위 조건들을 기반으로 매칭된 논문들을 Json 파일로 저장합니다. 이때 Json 파일에 저장되는 모든 데이터는 아래 3가지 규칙에 의하여 저장됩니다.
-    1. 학회의 impact factor가 높을수록
-    2. 최신 논문일수록
-    3. Citation이 높을수록
 
 # Effectiveness
 - 효과를 입증하기 위해 키워드 및 학회를 정하고, 원하는 논문 10개를 찾아보았고, 이때 걸리는 시간을 비교해봤습니다.
 - CVPR 기준으로 Weakly-Supervised 란 키워드가 들어간 원하는 논문 10개를 찾기 위해 걸리는 시간은 대략 ~~초였고, Crawler를 활용하여 찾을 경우 ~초였습니다. 약 ~배 더 빠른 속도로 원하는 논문을 검색할 수 있었습니다.
 
-# Conference Lists
+# Available Conference List
 - [x] CVPR 2017
 - [x] CVPR 2018
 - [x] CVPR 2019
@@ -108,6 +98,9 @@ python make_pdf_file_using_keywords.py --keywords CAM --pdf_path ./results/CAM.p
 # TODO List
 - [X] Crawl title, abstract, bibtex and pdf_url per a conference.
 - [x] Search the papers using the keywords which the user typed. 
+- [ ] Add figures and tables in the PDF.
+- [ ] Add GUI
+- [ ] Provide the other formats. (XLSX, Notion)
 - [ ] Make word cloud using title and abstract.
 
 # Reference
