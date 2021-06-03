@@ -1,0 +1,29 @@
+{
+    "CVPR2017":"CVPR2017.jpg",
+    "CVPR2018":"CVPR2018.png",
+    "CVPR2019":"CVPR2019.png",
+    "CVPR2020":"CVPR2020.jpg",
+    "CVPR2021":"CVPR2021.jpg",
+
+    "ICCV2017":"ICCV2017.jpg",
+    "ICCV2019":"ICCV2019.png",
+
+    "WACV2020":"WACV2020.png",
+    "WACV2021":"WACV2021.jpg",
+    
+    "ECCV2018":"ECCV.jpg",
+    "ECCV2020":"ECCV.jpg",
+    
+    "NIPS2017":"NIPS.jpg",
+    "NIPS2018":"NIPS.jpg",
+    "NIPS2019":"NIPS.jpg",
+    "NIPS2020":"NIPS.jpg",
+    
+    "ICLR2018":"ICLR.jpg",
+    "ICLR2019":"ICLR.jpg",
+    "ICLR2020":"ICLR.jpg",
+
+    "AAAI2019":"AAAI.png",
+    "AAAI2020":"AAAI.png",
+    "AAAI2021":"AAAI.png"
+}

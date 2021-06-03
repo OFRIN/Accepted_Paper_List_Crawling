@@ -35,7 +35,7 @@ python make_pdf_file_using_keywords.py --keywords CAM --pdf_path ./data/CAM.pdf
 
 3. 검색 버튼을 누르면 위 조건들을 기반으로 매칭된 논문들을 Json 파일로 저장합니다. 이때 Json 파일에 저장되는 모든 데이터는 아래 3가지 규칙에 의하여 저장됩니다.
     1. 학회의 impact factor가 높을수록
-    2. 최신 논문일수록 
+    2. 최신 논문일수록
     3. Citation이 높을수록
 
 # Effectiveness

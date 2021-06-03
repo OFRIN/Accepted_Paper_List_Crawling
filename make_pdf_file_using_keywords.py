@@ -42,10 +42,13 @@ class PDF(FPDF):
         self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
 
     def write_title(self):
+        self.image(self.papers[self.paper_index]['logo'], x=10, y=8, h=20)
+        self.ln(20)
+        
         self.set_font(self.font_name, '', 10)
         self.set_fill_color(200, 220, 255)
 
-        self.cell(0, 6, self.papers[self.paper_index]['title'], 0, 1, 'L', 1)
+        self.multi_cell(0, 8, self.papers[self.paper_index]['title'], fill=True)
         self.ln(4)
     
     def write_abstract(self):
@@ -64,7 +67,7 @@ class PDF(FPDF):
             self.set_fill_color(200, 200, 200)
 
             # Output justified text
-            self.multi_cell(0, 5, self.papers[self.paper_index]['bibtex'], fill=1)
+            self.multi_cell(0, 5, self.papers[self.paper_index]['bibtex'], fill=True)
 
             # Line break
             self.ln()
@@ -95,27 +98,35 @@ class PDF(FPDF):
 papers = []
 keywords = args.keywords.lower().split(',')
 
-for name in [
+print('#', len(keywords))
+
+conference_names = [
     'CVPR2021', 'AAAI2021',             'WACV2021', 
-    'CVPR2020', 'AAAI2020', 'NIPS2020', 'WACV2020',              'ECCV',
-    'CVPR2019', 'AAAI2019', 'NIPS2019', 'ICCV2019', 'ICLR2019',
-    'CVPR2018',             'NIPS2018',             'ICLR2018']:
+    'CVPR2020', 'AAAI2020', 'NIPS2020', 'WACV2020',                          'ECCV2020',
+    'CVPR2019', 'AAAI2019', 'NIPS2019',             'ICCV2019', 'ICLR2019',
+    'CVPR2018',             'NIPS2018',                         'ICLR2018',  'ECCV2018',
+    'CVPR2017',             'NIPS2017',             'ICCV2017', 
+]
 
-    if not '2021' in name:
-        input()
+logo_dict = read_json('./data/logo_info.json')
+count_dict = {name:0 for name in conference_names}
 
-    for data in read_json('./data/{}.json'.format(name), encoding='utf-8'):
+for name in conference_names:
+    print(name)
+
+    for data in read_json('./data/conferences/{}.json'.format(name), encoding='utf-8'):
         title = data['title'].lower()
         abstract = data['abstract'].lower()
 
-        cond_title = [keyword in title for keyword in keywords]
-        cond_abstract = [keyword in data['abstract'] for keyword in keywords]
+        count = 0
+        for keyword in keywords:
+            if keyword in title or keyword in abstract:
+                count += 1
+        
+        if count >= len(keywords):
+            count_dict[name] += 1
+            data['logo'] = './resource/' + logo_dict[name]
 
-        cond = cond_title and cond_abstract
-
-        print(name, title)
-
-        if sum(cond) >= len(keywords):
             papers.append(data)
 
 print('# Found papers : ({})'.format(len(papers)))
