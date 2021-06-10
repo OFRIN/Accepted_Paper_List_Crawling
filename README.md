@@ -105,6 +105,7 @@ python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation -
 - [ ] Add GUI
 - [ ] Provide the other formats. (XLSX, Notion)
 - [ ] Make word cloud using title and abstract.
+- [ ] Show figure, abstract, and title per a paper. 
 
 # Reference
 - https://github.com/hoya012/CVPR-2021-Paper-Statistics
