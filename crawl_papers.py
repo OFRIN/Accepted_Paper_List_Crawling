@@ -5,7 +5,7 @@ from tools import json_utils
 from tools import crawling_utils
 
 parser = io_utils.Parser()
-parser.add('conference_names', 'CVPR2018', str)
+parser.add('conference_names', 'CVPR2021', str)
 parser.add('debug', False, bool)
 args = parser.get_args()
 
