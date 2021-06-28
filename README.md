@@ -52,6 +52,9 @@ python make_pdf_file_using_keywords.py --keywords weakly,object,localization --p
 python make_pdf_file_using_keywords.py --keywords weakly,semantic,segmentation --pdf_path ./results/WSSS.pdf 
 python make_pdf_file_using_keywords.py --keywords weakly,object,detection --pdf_path ./results/WSOD.pdf 
 python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation --pdf_path ./results/WSIS.pdf
+
+python make_pdf_file_using_keywords.py --keywords superpixel --pdf_path ./results/SuperPixel.pdf
+python make_pdf_file_using_keywords.py --keywords semi,semantic,segmentation --pdf_path ./results/Semi-Supervised_Semantic_Segmentation.pdf
 ```
 
 # Effectiveness
@@ -90,7 +93,7 @@ python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation -
 - [x] ICLR 2018
 - [x] ICLR 2019
 - [x] ICLR 2020
-- [ ] ICLR 2021
+- [ ] ICLR 2021 
 
 - [ ] AAAI 2017
 - [ ] AAAI 2018
@@ -111,3 +114,4 @@ python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation -
 - https://github.com/hoya012/CVPR-2021-Paper-Statistics
 - https://scholarly.readthedocs.io/en/latest/quickstart.html#example
 - https://github.com/titipata/scipdf_parser
+- https://github.com/evanzd/ICLR2021-OpenReviewData
