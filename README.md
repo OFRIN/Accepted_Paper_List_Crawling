@@ -16,9 +16,13 @@ In the next section, I am going to explain the details of the crawler.
 ![Overview](./resource/Crawler_For_Searching_Papers-Overview.png)
 
 Step 1. Request essential and additional keywords to the crawler
+
 Step 2. Query the keywords the user chose into DB
+
 Step 3. Return the papers associated with the keywords. 
+
 Step 4. Make the table of the papers from DB. 
+
 Step 5. Export as a PDF file from the table. 
 
 <br>
@@ -48,12 +52,7 @@ pip install python-magic-bin==0.4.14
 pip install -r requirements.txt
 ```
 
-### 3. Docker (TODO)
-```bash
-```
-
 # Usage
-- 
 ```bash
 python make_pdf_file_using_keywords.py --keywords weakly,object,localization --pdf_path ./results/WSOL.pdf
 python make_pdf_file_using_keywords.py --keywords weakly,semantic,segmentation --pdf_path ./results/WSSS.pdf 
@@ -115,6 +114,7 @@ python make_pdf_file_using_keywords.py --keywords semantic,segmentation --pdf_pa
 - [ ] Provide the other formats. (XLSX, Notion)
 - [ ] Make word cloud using title and abstract.
 - [ ] Show figure, abstract, and title per a paper. 
+- [ ] Make docker file.
 
 # Reference
 - https://github.com/hoya012/CVPR-2021-Paper-Statistics
