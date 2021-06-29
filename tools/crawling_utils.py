@@ -92,7 +92,7 @@ class Crawler:
             bibtex = soup_per_paper.find("div", {"class": "bibref"}).text
 
             sub_pdf_url = soup_per_paper.select_one('#content > dl > dd > a').get('href')
-            
+
             if '2021' in sub_pdf_url and 'WACV' in sub_pdf_url:
                 sub_pdf_url = sub_pdf_url[1:]
             if '2021' in sub_pdf_url and 'CVPR' in sub_pdf_url:
@@ -105,7 +105,7 @@ class Crawler:
             title = remove_wrong_keyword(title)
             abstract = remove_wrong_keyword(abstract)
             bibtex = remove_wrong_keyword(bibtex)
-
+            
             data.append({
                 'title' : title,
                 'abstract' : abstract,
@@ -476,92 +476,93 @@ class Crawler:
 
         return data
 
-    def parse_for_cvpr2021(self, json_path):
-        if os.path.isfile(json_path):
-            data = read_json(json_path, encoding='utf-8')
-        else:
-            data = []
+    # - Announced paper list on cvf foundation.
+    # def parse_for_cvpr2021(self, json_path):
+    #     if os.path.isfile(json_path):
+    #         data = read_json(json_path, encoding='utf-8')
+    #     else:
+    #         data = []
 
-        titles = []
+    #     titles = []
 
-        for page_name in range(168, 180):
-            # Load URL for all CVPR 2021 accepted papers.
-            self.driver.get("http://cvpr2021.thecvf.com/node/{}".format(page_name)) #FIXME
+    #     for page_name in range(168, 180):
+    #         # Load URL for all CVPR 2021 accepted papers.
+    #         self.driver.get("http://cvpr2021.thecvf.com/node/{}".format(page_name)) #FIXME
 
-            table =  self.driver.find_elements_by_tag_name("table") 
-            print("length of table : ", len(table))
+    #         table =  self.driver.find_elements_by_tag_name("table") 
+    #         print("length of table : ", len(table))
 
-            for i in range(len(table)):
-                tbody = table[i].find_elements_by_tag_name("tbody")
-                trs = tbody[0].find_elements_by_tag_name("tr")
+    #         for i in range(len(table)):
+    #             tbody = table[i].find_elements_by_tag_name("tbody")
+    #             trs = tbody[0].find_elements_by_tag_name("tr")
                 
-                for j in range(1, len(trs)):
-                    tds = trs[j].find_elements_by_tag_name('td')
-                    titles.append(tds[1].text)
+    #             for j in range(1, len(trs)):
+    #                 tds = trs[j].find_elements_by_tag_name('td')
+    #                 titles.append(tds[1].text)
 
-        print("The number of total accepted paper titles : ", len(titles))
+    #     print("The number of total accepted paper titles : ", len(titles))
 
-        length = len(titles)
+    #     length = len(titles)
 
-        for paper_index, title in enumerate(titles):
-            sys.stdout.write('\r[%03d/%03d] = %s'%(paper_index + 1, length, title))
-            sys.stdout.flush()
+    #     for paper_index, title in enumerate(titles):
+    #         sys.stdout.write('\r[%03d/%03d] = %s'%(paper_index + 1, length, title))
+    #         sys.stdout.flush()
 
-            try:
-                if data[paper_index]['pdf_url'] != '':
-                    continue
-            except IndexError:
-                pass
+    #         try:
+    #             if data[paper_index]['pdf_url'] != '':
+    #                 continue
+    #         except IndexError:
+    #             pass
             
-            low_title = title.lower()
-            results = arxiv.Search(title, max_results=10).get()
+    #         low_title = title.lower()
+    #         results = arxiv.Search(title, max_results=10).get()
 
-            info = None
+    #         info = None
 
-            try:
-                for i, result in enumerate(results):
-                    # if i > 10:
-                    #     break
+    #         try:
+    #             for i, result in enumerate(results):
+    #                 # if i > 10:
+    #                 #     break
 
-                    searched_title = result.title.lower()
-                    similarity = difflib.SequenceMatcher(None, low_title, searched_title).ratio()
+    #                 searched_title = result.title.lower()
+    #                 similarity = difflib.SequenceMatcher(None, low_title, searched_title).ratio()
                     
-                    # print(similarity)
-                    # print(low_title)
-                    # print(searched_title)
-                    # print()
+    #                 # print(similarity)
+    #                 # print(low_title)
+    #                 # print(searched_title)
+    #                 # print()
 
-                    if similarity >= 0.90:
-                        info = result
-                        break
+    #                 if similarity >= 0.90:
+    #                     info = result
+    #                     break
             
-            except arxiv.arxiv.UnexpectedEmptyPageError:
-                pass
+    #         except arxiv.arxiv.UnexpectedEmptyPageError:
+    #             pass
             
-            if info is not None:
-                single_data = {
-                    'title' : title,
-                    'abstract' : result.summary.replace('\n', ' '),
-                    'bibtex' : '',
-                    'pdf_url' : result.pdf_url,
-                }
-            else:
-                single_data = {
-                    'title' : title,
-                    'abstract' : '',
-                    'bibtex' : '',
-                    'pdf_url' : '',
-                }
+    #         if info is not None:
+    #             single_data = {
+    #                 'title' : title,
+    #                 'abstract' : result.summary.replace('\n', ' '),
+    #                 'bibtex' : '',
+    #                 'pdf_url' : result.pdf_url,
+    #             }
+    #         else:
+    #             single_data = {
+    #                 'title' : title,
+    #                 'abstract' : '',
+    #                 'bibtex' : '',
+    #                 'pdf_url' : '',
+    #             }
 
-            data.append(single_data)
+    #         data.append(single_data)
             
-            if paper_index % 10 == 0:
-                write_json(json_path, data, encoding='utf-8')
+    #         if paper_index % 10 == 0:
+    #             write_json(json_path, data, encoding='utf-8')
             
-            if self.debug:
-                if len(data) >= 10:
-                    break
+    #         if self.debug:
+    #             if len(data) >= 10:
+    #                 break
         
-        print()
+    #     print()
 
-        return data
+    #     return data

@@ -1,15 +1,20 @@
-import glob
+# Copyright (C) 2021 * Ltd. All rights reserved.
+# author : Sanghyun Jo <josanghyeokn@gmail.com>
+
 from fpdf import FPDF
 
 from tools import io_utils
 from tools.json_utils import read_json
 
 parser = io_utils.Parser()
-parser.add('keywords', 'weakly,localization,segmentation,detection,panoptic', str)
+parser.add('essential_keywords', 'weakly', str)
+parser.add('keywords', '', str)
+
 parser.add('years', '2021,2020,2019,2018,2017', str)
+
 parser.add('pdf_path', '', str)
-parser.add('num_match', -1, int)
 parser.add('font', 'Roboto', str)
+
 args = parser.get_args()
 
 class PDF(FPDF):
@@ -20,7 +25,7 @@ class PDF(FPDF):
         self.papers = papers
 
         self.font_name = 'Arial'
-
+    
     def update_font(self, name):
         font_folder = f'./font/{name}/'
 
@@ -33,7 +38,7 @@ class PDF(FPDF):
 
     def header(self):
         pass
-
+        
     def footer(self):
         self.set_y(-15)
 
@@ -100,10 +105,9 @@ class PDF(FPDF):
 papers = []
 
 years = args.years.split(',')
-keywords = args.keywords.lower().split(',')
 
-# if args.num_match == -1:
-#     args.num_match = len(keywords)
+essential_keywords = args.essential_keywords.lower().split(',')
+keywords = args.keywords.lower().split(',')
 
 print('#', len(keywords))
 

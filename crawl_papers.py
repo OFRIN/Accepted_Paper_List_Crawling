@@ -1,4 +1,5 @@
-import os
+# Copyright (C) 2021 * Ltd. All rights reserved.
+# author : Sanghyun Jo <josanghyeokn@gmail.com>
 
 from tools import io_utils
 from tools import json_utils
@@ -76,6 +77,9 @@ for name in args.conference_names.split(','):
     
     elif data_dict[name]['type'] == 'aaai':
         data += crawler.parse_for_aaai(name, data_dict[name]['url'], data_path)
+
+    # elif data_dict[name]['type'] == 'arxiv' and name == 'CVPR2021':
+    #     data += crawler.parse_for_cvpr2021(data_path)
 
     elif data_dict[name]['type'] == 'arxiv' and name == 'CVPR2021':
         data += crawler.parse_for_cvpr2021(data_path)

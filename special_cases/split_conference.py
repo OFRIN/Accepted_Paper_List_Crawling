@@ -1,4 +1,14 @@
-import json
+# Copyright (C) 2021 * Ltd. All rights reserved.
+# author : Sanghyun Jo <josanghyeokn@gmail.com>
+
+import os
+import sys
+
+filepath = os.path.dirname(__file__)
+filepath = os.path.abspath(filepath)
+
+sys.path.append(os.path.dirname(filepath))
+
 from tools import json_utils
 
 dataset = json_utils.read_json('./data/conferences/ECCV.json', encoding='utf-8')
