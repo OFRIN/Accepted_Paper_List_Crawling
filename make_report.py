@@ -8,7 +8,7 @@ from tools.json_utils import read_json
 
 parser = io_utils.Parser()
 parser.add('essential_keywords', 'weakly', str)
-parser.add('keywords', '', str)
+parser.add('additional_keywords', '', str)
 
 parser.add('years', '2021,2020,2019,2018,2017', str)
 
@@ -25,7 +25,7 @@ class PDF(FPDF):
         self.papers = papers
 
         self.font_name = 'Arial'
-    
+
     def update_font(self, name):
         font_folder = f'./font/{name}/'
 
@@ -107,13 +107,17 @@ papers = []
 years = args.years.split(',')
 
 essential_keywords = args.essential_keywords.lower().split(',')
-keywords = args.keywords.lower().split(',')
+if args.additional_keywords != '':
+    additional_keywords = args.additional_keywords.lower().split(',')
+else:
+    additional_keywords = None
 
-print('#', len(keywords))
+print('# Essential Keywords :', essential_keywords)
+print('# Addntional Keywords :', additional_keywords)
 
 conference_names = [
-    'CVPR2021', 'AAAI2021',             'WACV2021', 
-    'CVPR2020', 'AAAI2020', 'NIPS2020', 'WACV2020',                          'ECCV2020',
+    'CVPR2021', 'AAAI2021',             'WACV2021',             'ICLR2021',
+    'CVPR2020', 'AAAI2020', 'NIPS2020', 'WACV2020',             'ICLR2020',  'ECCV2020',
     'CVPR2019', 'AAAI2019', 'NIPS2019',             'ICCV2019', 'ICLR2019',
     'CVPR2018',             'NIPS2018',                         'ICLR2018',  'ECCV2018',
     'CVPR2017',             'NIPS2017',             'ICCV2017', 
@@ -130,20 +134,32 @@ for name in conference_names:
         continue
 
     for data in read_json('./data/conferences/{}.json'.format(name), encoding='utf-8'):
+        # extract title and abstract
         title = data['title'].lower()
         abstract = data['abstract'].lower()
 
-        count = 0
-        for keyword in keywords:
+        # set the condition of essential keywords
+        essential_count = 0
+        for keyword in essential_keywords:
             if keyword in title or keyword in abstract:
-                count += 1
+                essential_count += 1
+
+        essential_cond = essential_count >= len(essential_keywords)
+
+        # set the condition of additional keywords
+        if additional_keywords is not None:
+            additional_count = 0
+            for keyword in additional_keywords:
+                if keyword in title or keyword in abstract:
+                    additional_count += 1
+
+            additional_cond = additional_count > 0
+        else:
+            additional_cond = True
         
-        if count >= len(keywords):
+        if essential_cond and additional_cond:
             count_dict[name] += 1
             data['logo'] = './resource/' + logo_dict[name]
-
-            print(data['title'])
-
             papers.append(data)
 
 print('# Found papers : ({})'.format(len(papers)))
@@ -156,3 +172,4 @@ if len(papers) > 0 and args.pdf_path != '':
     pdf.update_font(args.font)
     pdf.update()
     pdf.output(args.pdf_path)
+

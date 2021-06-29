@@ -54,16 +54,23 @@ pip install -r requirements.txt
 
 # Usage
 ```bash
-python make_pdf_file_using_keywords.py --keywords weakly,object,localization --pdf_path ./results/WSOL.pdf
-python make_pdf_file_using_keywords.py --keywords weakly,semantic,segmentation --pdf_path ./results/WSSS.pdf 
-python make_pdf_file_using_keywords.py --keywords weakly,object,detection --pdf_path ./results/WSOD.pdf 
-python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation --pdf_path ./results/WSIS.pdf
+# for weakly supervised learning
+python make_report.py --essential_keywords weakly --additional_keywords segmentation,detection,localization --pdf_path ./results/Weakly_Supervised_Learning.pdf
 
-python make_pdf_file_using_keywords.py --keywords superpixel --pdf_path ./results/SuperPixel.pdf
-python make_pdf_file_using_keywords.py --keywords semi,semantic,segmentation --pdf_path ./results/Semi-Supervised_Semantic_Segmentation.pdf
+# for semi-supervised learning
+python make_report.py --essential_keywords semi --additional_keywords segmentation,detection,localization --pdf_path ./results/Semi_Supervised_Learning.pdf
 
-python make_pdf_file_using_keywords.py --keywords semantic,segmentation --pdf_path ./results/SS.pdf --years 2021,2020,2019
-python make_pdf_file_using_keywords.py --keywords semantic,segmentation --pdf_path ./results/SS.pdf --years 2021
+# for data augmentation
+python make_report.py --essential_keywords data,augmentation --pdf_path ./results/DataAugmentation.pdf
+
+# for Refinements
+python make_report.py --essential_keywords refine,semantic,segmentation --pdf_path ./results/Refinements_For_Semantic_Segmentation.pdf
+
+# for semi-supervised learning of semantic segmentation
+python make_report.py --essential_keywords semi,semantic,segmentation --pdf_path ./results/Semi_Supervised_Learning_For_Semantic_Segmentation.pdf
+
+# for CRF of semantic segmentation
+python make_report.py --essential_keywords crf,semantic,segmentation --pdf_path ./results/CRF_For_Semantic_Segmentation.pdf
 ```
 
 # Available Conference List
