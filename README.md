@@ -55,6 +55,8 @@ python make_pdf_file_using_keywords.py --keywords weakly,instance,segmentation -
 
 python make_pdf_file_using_keywords.py --keywords superpixel --pdf_path ./results/SuperPixel.pdf
 python make_pdf_file_using_keywords.py --keywords semi,semantic,segmentation --pdf_path ./results/Semi-Supervised_Semantic_Segmentation.pdf
+
+python make_pdf_file_using_keywords.py --keywords semantic,segmentation --pdf_path ./results/SS.pdf --years 2021,2020,2019
 ```
 
 # Effectiveness

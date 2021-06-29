@@ -6,6 +6,7 @@ from tools.json_utils import read_json
 
 parser = io_utils.Parser()
 parser.add('keywords', 'weakly,localization,segmentation,detection,panoptic', str)
+parser.add('years', '2021,2020,2019,2018,2017', str)
 parser.add('pdf_path', '', str)
 parser.add('num_match', -1, int)
 parser.add('font', 'Roboto', str)
@@ -97,6 +98,8 @@ class PDF(FPDF):
             #     break
 
 papers = []
+
+years = args.years.split(',')
 keywords = args.keywords.lower().split(',')
 
 # if args.num_match == -1:
@@ -117,6 +120,10 @@ count_dict = {name:0 for name in conference_names}
 
 for name in conference_names:
     print(name)
+
+    year = name[4:]
+    if not year in years:
+        continue
 
     for data in read_json('./data/conferences/{}.json'.format(name), encoding='utf-8'):
         title = data['title'].lower()
