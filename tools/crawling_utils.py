@@ -92,11 +92,10 @@ class Crawler:
             bibtex = soup_per_paper.find("div", {"class": "bibref"}).text
 
             sub_pdf_url = soup_per_paper.select_one('#content > dl > dd > a').get('href')
-
-            print(url, sub_pdf_url)
-            input()
-
+            
             if '2021' in sub_pdf_url and 'WACV' in sub_pdf_url:
+                sub_pdf_url = sub_pdf_url[1:]
+            if '2021' in sub_pdf_url and 'CVPR' in sub_pdf_url:
                 sub_pdf_url = sub_pdf_url[1:]
             else:
                 sub_pdf_url = sub_pdf_url[6:]
