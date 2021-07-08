@@ -1,11 +1,11 @@
 # Motivation
-Most researchers read papers to find new things or develop new algorithms. For example, when I searched articles about weakly supervised semantic segmentation, I should spend the time. Specifically, I divided the searching procedure into three steps. 
+Most researchers read papers to find new ideas or develop new algorithms. For example, I should spend the time on searching articles about weakly-supervised semantic segmentation. Specifically, I divided the searching procedures into three steps. 
 
-1. Seek the papers on some browser. (ex. Google Scholar)
+1. Seek the papers online. (ex. Google Scholar)
 2. Make the list of papers.
-3. Read the abstract of a paper to decide to study the details.
+3. Read the abstract of a paper to decide which one to be studied.
 
-To tackle this issue, I focused on how to check the validity of the paper quickly. So, I defined four principal parts which are title, abstract, tables, and figures. Also, I developed the crawler to create the list associated with keywords the user typed automatically. 
+Therefore, I developed the crawler to automatically create the list in line with keywords . I defined four principal parts which are title, abstract, tables, and figures. 
 
 In the next section, I am going to explain the details of the crawler. 
 
@@ -15,9 +15,9 @@ In the next section, I am going to explain the details of the crawler.
 
 ![Overview](./resource/Crawler_For_Searching_Papers-Overview.png)
 
-Step 1. Request essential and additional keywords to the crawler
+Step 1. Type essential and additional keywords to the crawler.
 
-Step 2. Query the keywords the user chose into DB
+Step 2. Transfer keywords the user chose into DB.
 
 Step 3. Return the papers associated with the keywords. 
 
@@ -118,7 +118,7 @@ python make_report.py --essential_keywords crf,semantic,segmentation --pdf_path 
 - [x] Search the papers using the keywords which the user typed. 
 - [ ] Add figures and tables in the PDF.
 - [ ] Add GUI
-- [ ] Provide the other formats. (XLSX, Notion)
+- [ ] Provide the other formats. (XLSX, Markdown)
 - [ ] Make word cloud using title and abstract.
 - [ ] Show figure, abstract, and title per a paper. 
 - [ ] Make docker file.
